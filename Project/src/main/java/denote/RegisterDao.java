@@ -1,63 +1,72 @@
 package denote;
-
 import java.sql.Connection;
 
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import org.apache.catalina.User;
+import javax.servlet.annotation.WebServlet;
 
-
-
-public class RegisterDao {
-
-    public int registerUser(Register register) throws ClassNotFoundException {
-        String INSERT_USERS_SQL = "INSERT INTO user" +
-            "  (name, email, password, phoneno) VALUES " +
-            " (?, ?, ?, ?);";
-
-        int result = 0;
-
-        Class.forName("com.mysql.cj.jdbc.Driver");
-
-        try (Connection connection = DriverManager
-            .getConnection("jdbc:mysql://localhost:3306/denote", "root", "ramya");
-
-            // Step 2:Create a statement using connection object
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
-            
-            preparedStatement.setString(1, register.getname());
-            preparedStatement.setString(2, register.getemail());
-            
-            preparedStatement.setString(3, register.getpassword());
-            
-            preparedStatement.setString(4, register.getphoneno());
-
-            System.out.println(preparedStatement);
-            // Step 3: Execute the query or update query
-            result = preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
-            // process sql exception
-            printSQLException(e);
-        }
-        return result;
-    }
-
-    private void printSQLException(SQLException ex) {
-        for (Throwable e: ex) {
-            if (e instanceof SQLException) {
-                e.printStackTrace(System.err);
-                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
-                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
-                System.err.println("Message: " + e.getMessage());
-                Throwable t = ex.getCause();
-                while (t != null) {
-                    System.out.println("Cause: " + t);
-                    t = t.getCause();
-                }
-            }
-        }
-    }
+public class RegisterDao { 
+     public String registerUser(Register register)
+     {
+         String name = register.getName();
+         String password = register.getPassword();
+         String email = register.getEmail();
+         String phoneno = register.getPhoneno();      
+         Connection con = null;
+         PreparedStatement preparedStatement = null;         
+         try
+         {
+             con = DBConnect.createConnection();
+             String query = "insert into user(name,password,email,phoneno) values (?,?,?,?)";
+             preparedStatement = con.prepareStatement(query);
+             preparedStatement.setString(1, name);
+             preparedStatement.setString(2, password);
+             preparedStatement.setString(3, email);
+             preparedStatement.setString(4, phoneno);                         
+             int i= preparedStatement.executeUpdate();             
+             if (i!=0)  
+             return "SUCCESS"; 
+         }
+         catch(SQLException e)
+         {
+            e.printStackTrace();
+         }       
+         return "Oops.. Something went wrong there..!"; 
+     }
+ 
+     
+     public String editUser(Register edit)
+     {
+         String name = edit.getName();
+         //String password = edit.getPassword();
+         String email = edit.getEmail();
+         String phoneno = edit.getPhoneno();      
+         String gender = edit.getGender();
+         String dob = edit.getDob();      
+         Connection con = null;
+         PreparedStatement preparedStatement = null;         
+         try
+         {
+             con = DBConnect.createConnection();
+             String query = "update user set email=?,name=?,phoneno=?,gender=?,dob=? where email="+email;
+             preparedStatement = con.prepareStatement(query);
+             preparedStatement.setString(1, email);
+        
+             preparedStatement.setString(2, name);
+             preparedStatement.setString(3, phoneno);  
+             preparedStatement.setString(4, gender); 
+             preparedStatement.setString(5, dob); 
+             int i= preparedStatement.executeUpdate();             
+             if (i!=0)  
+             return "SUCCESS"; 
+         }
+         catch(SQLException e)
+         {
+            e.printStackTrace();
+         }       
+         return "Oops.. Something went wrong there..!"; 
+     }
+ 
+     
 }
