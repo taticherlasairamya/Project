@@ -11,14 +11,14 @@
       <div class="content">
 		<div class="navbar">
   		<a href="HomePage.jsp">Home</a>
-  		<a href="#home">Amounts</a>
+  		<a href="AddAmount.jsp">Amounts</a>
  		 <a href="#news">Graphs</a>
   			<div class="dropdown">
     		<button class="dropbtn">Profile 
      	 <i class="fa fa-caret-down"></i>
     	</button>
     <div class="dropdown-content">
-      <a href="#">Edit Profile</a>
+      <a href="EditProfile.jsp">Edit Profile</a>
       <a href="ChangePassword.jsp">Change Password</a>
       <a href="LogoutSuccess.jsp">Logout</a>
     </div>
@@ -26,6 +26,7 @@
 </div>
 <form method="POST" action="AddCategory.jsp"><br>
      	<button class="button">Add Category</button>
+     	<a href="Image.jsp">Click here</a>
 	</div></div>
 </center></form>
    </body>
