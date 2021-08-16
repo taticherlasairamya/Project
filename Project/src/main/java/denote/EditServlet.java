@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
  
 
- 
+
 public class EditServlet extends HttpServlet 
 { 
      public EditServlet() 
@@ -14,9 +14,9 @@ public class EditServlet extends HttpServlet
      }
      protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
      { 
+    	 
          Register register = new Register();       
-         register.setEmail(request.getParameter("email"));
-         
+         register.setEmail(request.getParameter("email"));         
          register.setName(request.getParameter("name"));              
          register.setPhoneno(request.getParameter("phoneno"));    
          register.setGender(request.getParameter("gender")); 
@@ -25,12 +25,12 @@ public class EditServlet extends HttpServlet
          String userRegistered = registerDao.editUser(register);         
          if(userRegistered.equals("SUCCESS"))  
          {
-            request.getRequestDispatcher("RegisterSuccess.jsp").forward(request, response);
+            request.getRequestDispatcher("EditSuccess.jsp").forward(request, response);
          }
          else  
          {
             request.setAttribute("errMessage", userRegistered);
-            request.getRequestDispatcher("/RegisterError.jsp").forward(request, response);
+            request.getRequestDispatcher("/EditError.jsp").forward(request, response);
          }
      }
     
