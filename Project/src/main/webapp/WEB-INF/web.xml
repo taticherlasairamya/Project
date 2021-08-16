@@ -5,4 +5,28 @@
     <welcome-file>Login.jsp</welcome-file>
     
   </welcome-file-list>  
+  
+  
+  <servlet>
+ 
+ <display-name>RegisterServlet</display-name>
+ <servlet-name>RegisterServlet</servlet-name>
+ <servlet-class>denote.RegisterServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+ <servlet-name>RegisterServlet</servlet-name>
+ <url-pattern>/RegisterServlet</url-pattern>
+ </servlet-mapping>
+  
+  
+  <servlet>
+ <description></description>
+ <display-name>RegisterServlet</display-name>
+ <servlet-name>RegisterServlet1</servlet-name>
+ <servlet-class>denote.EditServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+ <servlet-name>RegisterServlet1</servlet-name>
+ <url-pattern>/EditServlet</url-pattern>
+ </servlet-mapping>
 </web-app>
