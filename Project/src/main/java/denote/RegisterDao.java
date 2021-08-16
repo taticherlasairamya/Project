@@ -6,7 +6,8 @@ import java.sql.SQLException;
 
 import javax.servlet.annotation.WebServlet;
 
-public class RegisterDao { 
+public class RegisterDao 
+{ 
      public String registerUser(Register register)
      {
          String name = register.getName();
@@ -34,12 +35,9 @@ public class RegisterDao {
          }       
          return "Oops.. Something went wrong there..!"; 
      }
- 
-     
      public String editUser(Register edit)
      {
          String name = edit.getName();
-         //String password = edit.getPassword();
          String email = edit.getEmail();
          String phoneno = edit.getPhoneno();      
          String gender = edit.getGender();
@@ -48,16 +46,16 @@ public class RegisterDao {
          PreparedStatement preparedStatement = null;         
          try
          {
+        	 
              con = DBConnect.createConnection();
-             String query = "update user set email=?,name=?,phoneno=?,gender=?,dob=? where email="+email;
-             preparedStatement = con.prepareStatement(query);
-             preparedStatement.setString(1, email);
-        
-             preparedStatement.setString(2, name);
-             preparedStatement.setString(3, phoneno);  
-             preparedStatement.setString(4, gender); 
-             preparedStatement.setString(5, dob); 
-             int i= preparedStatement.executeUpdate();             
+             PreparedStatement ps=con.prepareStatement(  
+                     "update user set name=?,phoneno=?,gender=?,dob=? where email=?");  
+             ps.setString(1,edit.getName());  
+             ps.setString(2,edit.getPhoneno());  
+             ps.setString(3,edit.getGender());  
+             ps.setString(4,edit.getDob());  
+             ps.setString(5,edit.getEmail());  
+             int i= ps.executeUpdate();             
              if (i!=0)  
              return "SUCCESS"; 
          }
