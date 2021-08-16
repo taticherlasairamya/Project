@@ -1,52 +1,62 @@
 package denote;
-import java.io.Serializable;
 
-/**
- * JavaBean class used in jsp action tags.
- * @author Ramesh Fadatare
- */
-public class Register implements Serializable {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-    private String name;
-    private String email;
-    
-    private String password;
-    
-    private String phoneno;
 
-	public String getname() {
+public class Register 
+{
+	 
+	 private String name;
+	 private String email;	 
+	 private String password;
+	 private String phoneno;
+	 private String gender;
+	 private String dob;
+	public String getGender() 
+	{
+		return gender;
+	}
+	public void setGender(String gender) 
+	{
+		this.gender = gender;
+	}
+	public String getDob() 
+	{
+		return dob;
+	}
+	public void setDob(String dob)
+	{
+		this.dob = dob;
+	}
+	public String getName() 
+	{
 		return name;
 	}
-
-	public void setname(String name) {
+	public void setName(String name) 
+	{
 		this.name = name;
 	}
-
-	public String getemail() {
+	public String getEmail()
+	{
 		return email;
 	}
-
-	public void setemail(String email) {
+	public void setEmail(String email) 
+	{
 		this.email = email;
 	}
-
-	public String getpassword() {
+	public String getPassword()
+	{
 		return password;
 	}
-
-	public void setpassword(String password) {
+	public void setPassword(String password) 
+	{
 		this.password = password;
 	}
-
-	public String getphoneno() {
+	public String getPhoneno() 
+	{
 		return phoneno;
 	}
-
-	public void setphoneno(String phoneno) {
+	public void setPhoneno(String phoneno)
+	{
 		this.phoneno = phoneno;
 	}
-
+	 
 }
