@@ -22,37 +22,30 @@ import javax.servlet.http.Part;
 @MultipartConfig
 public class UploadFile extends HttpServlet 
 {
-	private static final long serialVersionUID = 1L;
-
-	protected void doPost(HttpServletRequest request,  HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,  HttpServletResponse response) throws ServletException, IOException
+	{
 	    response.setContentType("text/html;charset=UTF-8");
 	    String category= request.getParameter("title");
 	    final Part filePart = request.getPart("uploadicon");   
 	    InputStream pdfFileBytes = null;
 	    final PrintWriter writer = response.getWriter();
 	    try
-	    {
-	    	
-	    	
-     	    if (filePart.getSize()>1048576 ) 
-     	    { 
-     		   {
+	    {	      	
+     	   if (filePart.getSize()>1048576 ) 
+     	   {
      			   response.sendRedirect("UploadFileError.jsp");
      			   writer.println("<br/> File size too big");
      			   return;
-     		   }
      	   }
-     	    
-	        pdfFileBytes = filePart.getInputStream(); 
+     	   pdfFileBytes = filePart.getInputStream(); 
 	        final byte[] bytes = new byte[pdfFileBytes.available()];
 	        pdfFileBytes.read(bytes); 
 	        Connection  con=null;
 	        Statement stmt=null;
 		    try
 		    {
-		    	  Class.forName("com.mysql.cj.jdbc.Driver");
-		    	  con = DriverManager.getConnection("jdbc:mysql://localhost:3306/denote","root","ramya");
-		     } 
+		    	 con = DBConnect.createConnection();
+		    } 
 		    catch (Exception e) 
 		    {
 		    	  System.out.println(e);
@@ -61,12 +54,12 @@ public class UploadFile extends HttpServlet
 			int success=0;
 		    PreparedStatement pstmt = con.prepareStatement("insert into category(categoryname,categoryicon) values (?,?)");
 		    pstmt.setString(1, category);
-		    pstmt.setBytes(2,bytes);    //Storing binary data in blob field.
+		    pstmt.setBytes(2,bytes);    
 		    success = pstmt.executeUpdate();
 		    if(success>=1)  System.out.println("File Stored");
 		    con.close(); 
-		    response.sendRedirect("HomePage.jsp");
-		        // writer.println("<br/> File Stored Successfully");
+		    response.sendRedirect("UploadFileSuccess.jsp");
+		     
 	    } 
 	    catch (FileNotFoundException fnf)
 	    {
